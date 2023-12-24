@@ -1,0 +1,84 @@
+// extension with trailing closure
+
+extension Int {
+    func repeater(message: () -> ()) {
+        for _ in 0..<self {
+            message()
+        }
+    }
+}
+
+extension String {
+    func giveEmojie() -> String {
+        self + " 🤠"
+    }
+}
+
+var str = "MyFarm "
+str = str.giveEmojie()
+print(str)
+
+
+
+extension Int {
+    func nextRoundedToFive() -> Int {
+      Int(5 * ceil(Double(self) / 5))
+    }
+    
+    func prevRoundedToThree() -> Int {
+        Int(3 * floor(Double(self) / 3))
+    }
+}
+
+var price = 37
+let roundedToFive = price.nextRoundedToFive()
+print(roundedToFive)
+let prevRoundedToThree = price.prevRoundedToThree()
+print(prevRoundedToThree)
+
+
+extension Int {
+    func graffity(message: () -> ()) {
+        for _ in 0..<self {
+            message()
+        }
+    }
+}
+
+
+3.graffity {
+    print("Rejoice")
+}
+
+// Особенности extension:
+
+class Animal {
+    func makeNoise() { print("screw") }
+}
+
+extension Animal {
+    func eat(){ print("nyam nyam") }
+}
+
+class Pig: Animal {
+    
+// 1. В под классе нельзя делать оверрайд методов с extension базового класса
+//    override func eat() { }
+}
+
+// 2. В extension нельзя делать оверрайд методов базового класа
+// extension Pig { override func makeNoise() { }
+
+// 3. static property являеться одной 1 на всю иерархию класса, при изменении в одном месте, под классы так же считают изминенние.
+extension Animal {
+    static var avgPrice = "100 USD"
+}
+
+print(Animal.avgPrice)      // 100
+Animal.avgPrice = "200 USD"
+print(Animal.avgPrice)      // 200
+print(Pig.avgPrice)         // 200
+Pig.avgPrice = "400 USD"
+print(Animal.avgPrice)      // 400
+print(Pig.avgPrice)         // 400
+
